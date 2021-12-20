@@ -5,6 +5,9 @@ public class UserInterface {
         int key=1;
         Scanner sc = new Scanner(System.in);
         FileManager fileoperation = new FileManager();
+        System.out.println("Enter Mobile Name: ");
+        String mobileName = sc.nextLine();
+        fileoperation.FileCreation(mobileName);
         while(key==1) {
             System.out.println("Hello Welcome to A1 Mobile shapp :)");
             System.out.println("Press 1 to ADD Mobile Info : \n" +
@@ -14,24 +17,14 @@ public class UserInterface {
             int option = sc.nextInt();
             switch(option){
                 case 1:
-                    System.out.println("Press 1 to ADD new Mobile Phone: \n" +
-                            "Press 2 to Update Existing Mobile Info: \n");
-                    int write_option = sc.nextInt();
-                    sc.next();
-                    switch (write_option) {
-                        case 1 -> {
                             System.out.println("Enter Mobile Name: ");
-                            String mobileName = sc.nextLine();
-                            fileoperation.FileCreation(mobileName);
+                            String mobile_Details = sc.nextLine();
+                            fileoperation.writeFile(mobile_Details);
+                            System.out.println("Details Added Sucessfully");
                             break;
-                        }
-                        case 2 -> {
-                            System.out.println("Enter Mobile Name: ");
-                            String searchmobile = sc.nextLine();
-                            fileoperation.writeFile("");
-                            break;
-                        }
-                    }
+
+
+
                 case 2:
                     fileoperation.readFile();
                     break;
@@ -39,7 +32,7 @@ public class UserInterface {
                 case 3:
                     break;
             }
-            System.out.println("\n\n\n\n");
+            System.out.println("\n\n\n");
             System.out.println("press 1 to continue: ");
             key= sc.nextInt();
         }

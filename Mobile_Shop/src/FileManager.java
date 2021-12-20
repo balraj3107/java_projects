@@ -24,6 +24,7 @@ public class FileManager {
         try {
             FileWriter fileWriter = new FileWriter(mobiledata,true);
             //fileWriter.write(data);
+            System.out.println(data);
             fileWriter.append(data);
             fileWriter.close();
         } catch (IOException e) {
