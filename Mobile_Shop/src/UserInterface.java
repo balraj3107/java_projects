@@ -15,9 +15,10 @@ public class UserInterface {
                     "Press 3 to Exit: \n");
 
             int option = sc.nextInt();
+            sc.nextLine();
             switch(option){
                 case 1:
-                            System.out.println("Enter Mobile Name: ");
+                            System.out.println("Enter Mobile Details : ");
                             String mobile_Details = sc.nextLine();
                             fileoperation.writeFile(mobile_Details);
                             System.out.println("Details Added Sucessfully");

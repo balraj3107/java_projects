@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Student {
@@ -9,6 +12,22 @@ public class Student {
     String mobile;
     String roll_number;
     String dob;
+    File studentdata;
+
+    void FileCreation(String FilePath){
+        studentdata= new File(FilePath);
+        try {
+            if(studentdata.createNewFile()){
+                System.out.println("File is Created");
+            }
+            else{
+                System.out.println("File is already exists!!");
+            }
+        } catch (IOException e) {
+            System.out.println("can't create File");
+        }
+    }
+
     void start(){
         int option;
 
@@ -40,9 +59,24 @@ public class Student {
             student[StudentNumber].mobile = sc.nextLine();System.out.print("Enter Student roll number: ");
             student[StudentNumber].roll_number = sc.nextLine();System.out.print("Enter Student dob: ");
             student[StudentNumber].dob = sc.nextLine();
+            String student_details = (student[StudentNumber].name+"|"+student[StudentNumber].mobile
+            +"|"+student[StudentNumber].roll_number+"|"+student[StudentNumber].dob+"\n" );
+            writeFile(student_details);
         }
 
         }
+    void writeFile(String data){
+        try {
+            FileWriter fileWriter = new FileWriter(studentdata,true);
+            //fileWriter.write(data);
+            System.out.println(data);
+            fileWriter.append(data);
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("file can't be Written");
+        }
+    }
+
         void printStudents(){
            for(int i = 0;i<currentIndex+1;i++){
                System.out.print("name: "+student[i].name+" ");
