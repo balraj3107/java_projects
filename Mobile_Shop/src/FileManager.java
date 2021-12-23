@@ -5,12 +5,12 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class FileManager {
-    File mobiledata;
+    File mobileData;
     Scanner sc = new Scanner(System.in);
    void FileCreation(String FilePath){
-        mobiledata= new File(FilePath);
+        mobileData = new File(FilePath);
         try {
-            if(mobiledata.createNewFile()){
+            if(mobileData.createNewFile()){
                 System.out.println("File is Created");
             }
             else{
@@ -22,7 +22,7 @@ public class FileManager {
     }
     void writeFile(String data){
         try {
-            FileWriter fileWriter = new FileWriter(mobiledata,true);
+            FileWriter fileWriter = new FileWriter(mobileData,true);
             //fileWriter.write(data);
             System.out.println(data);
             fileWriter.append(data);
@@ -33,7 +33,7 @@ public class FileManager {
     }
     void readFile(){
         try {
-            sc = new Scanner(mobiledata);
+            sc = new Scanner(mobileData);
             while(sc.hasNextLine()){
                 System.out.println(sc.nextLine());
 

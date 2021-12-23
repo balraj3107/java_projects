@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Student {
@@ -93,16 +92,33 @@ public class Student {
         while (sc.hasNextLine()) {
 
             String[] printStudentDetails;
-            String studentDetails = sc.nextLine();
-            printStudentDetails = studentDetails.split("\\|");
+            printStudentDetails = readFile(studentdata);
 
             for(int i =0 ; i<printStudentDetails.length;i++)
-                System.out.print("  "+printStudentDetails[i]);
-            System.out.println("\n");
+            System.out.print("  "+printStudentDetails[i]);
+                System.out.println("");
+
 
 
         }
-        sc.close();
+
+    }
+    String[] readFile(File student){
+        try {
+            sc = new Scanner(studentdata);
+
+            while(sc.hasNextLine()){
+
+                String[] addStudentDetails;
+                String studentDetails = sc.nextLine();
+                addStudentDetails = studentDetails.split("\\|");
+                return addStudentDetails;
+            }
+        } catch (FileNotFoundException e) {
+
+            System.out.println("Can't read File");}
+
+        return new String[0];
     }
 
 
