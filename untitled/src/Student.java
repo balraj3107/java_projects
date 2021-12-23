@@ -28,11 +28,13 @@ public class Student {
     void start() throws FileNotFoundException {
         int option;
 
-        System.out.println("press 1 to Add student" + "\n" + "press 2 to print all student");
+        System.out.println("press 1 to Add student" + "\n" + "press 2 to print all student"+"\n"+
+                "press 3 to Search student by Roll number");
         option = sc.nextInt();
         switch (option) {
             case 1 -> addStudent();
             case 2 -> printAllstudent();
+            case 3 -> searchStudent();
             default -> System.out.println("not a valid option");
         }
     }
@@ -94,7 +96,7 @@ public class Student {
             System.out.println("Student Name     " + student[i].name );
             System.out.println("Mobile Number     " + student[i].mobile );
             System.out.println("Roll Number          " + student[i].rollNumber );
-            System.out.println("Date of Birth       " + student[i].rollNumber );
+            System.out.println("Date of Birth       " + student[i].dob );
             System.out.println("/********************************/\n");
         }
     }
@@ -114,7 +116,7 @@ public class Student {
                     student[count].name = studentArray[0];
                     student[count].mobile = studentArray[1];
                     student[count].rollNumber = studentArray[2];
-                    student[count].dob = studentArray[2];
+                    student[count].dob = studentArray[3];
                     count++;
                     currentIndex++;
                 }
@@ -123,6 +125,24 @@ public class Student {
             e.printStackTrace();
         }
     }
+void searchStudent(){
+        Scanner scanner = new Scanner(System.in);
+    System.out.println("Enter Student Roll Number: ");
+        String rollNumber = scanner.nextLine();
+        for(int i=0;i<currentIndex;i++){
+            if(rollNumber.equals(student[i].rollNumber))
+            {
+                System.out.println("/********************************/");
+                System.out.println("Student Name     " + student[i].name );
+                System.out.println("Mobile Number     " + student[i].mobile );
+                System.out.println("Roll Number          " + student[i].rollNumber );
+                System.out.println("Date of Birth       " + student[i].dob );
+                System.out.println("/********************************/\n");
+                break;
+            }
+            System.out.println("couldn't find student!!");
+        }
 
+}
 
 }
