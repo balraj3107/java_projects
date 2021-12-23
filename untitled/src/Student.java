@@ -2,18 +2,18 @@ import java.io.*;
 import java.util.Scanner;
 
 public class Student {
-    static final int TOTAL_STUDENTS = 10;
+    static final int TOTAL_student = 10;
     static int currentIndex = -1;
-    static Student[] student = new Student[TOTAL_STUDENTS];
+    static Student[] student = new Student[TOTAL_student];
     static Scanner sc = new Scanner(System.in);
     String name;
     String mobile;
     String rollNumber;
     String dob;
-    File studentdata;
+    static File studentdata;
 
     Student() {
-        studentdata = new File("STUDENTS");
+        studentdata = new File("student");
         try {
             if (studentdata.createNewFile()) {
                 System.out.println("File is Created");
@@ -28,16 +28,18 @@ public class Student {
     void start() throws FileNotFoundException {
         int option;
 
-        System.out.println("press 1 to Add Students" + "\n" + "press 2 to print all Students");
+        System.out.println("press 1 to Add student" + "\n" + "press 2 to print all student");
         option = sc.nextInt();
         switch (option) {
             case 1 -> addStudent();
-            case 2 -> printStudents();
+            case 2 -> printAllstudent();
             default -> System.out.println("not a valid option");
         }
     }
 
     void init() {
+        readStudentDataFromFile();
+
         int continueProcess;
 
         do {
@@ -52,7 +54,7 @@ public class Student {
     }
 
     void addStudent() {
-        if (currentIndex >= TOTAL_STUDENTS - 1) {
+        if (currentIndex >= TOTAL_student - 1) {
             System.out.println("Seats are full");
         } else {
             int StudentNumber = ++currentIndex;
@@ -77,7 +79,7 @@ public class Student {
         try {
             FileWriter fileWriter = new FileWriter(studentdata, true);
             //fileWriter.write(data);
-            System.out.println(data);
+            //System.out.println(data);
             fileWriter.append(data);
             fileWriter.close();
         } catch (IOException e) {
@@ -86,39 +88,40 @@ public class Student {
     }
 
 
-    void printStudents() throws FileNotFoundException {
-
-        Scanner sc = new Scanner(studentdata);    //file to be scanned
-        while (sc.hasNextLine()) {
-
-            String[] printStudentDetails;
-            printStudentDetails = readFile(studentdata);
-
-            for(int i =0 ; i<printStudentDetails.length;i++)
-            System.out.print("  "+printStudentDetails[i]);
-                System.out.println("");
-
-
-
+    private void printAllstudent(){
+        for (int i =0; i<= currentIndex; i++){
+            System.out.println("/********************************/");
+            System.out.println("Student Name     " + student[i].name );
+            System.out.println("Mobile Number     " + student[i].mobile );
+            System.out.println("Roll Number          " + student[i].rollNumber );
+            System.out.println("Date of Birth       " + student[i].rollNumber );
+            System.out.println("/********************************/\n");
         }
-
     }
-    String[] readFile(File student){
+
+    static void readStudentDataFromFile(){
         try {
-            sc = new Scanner(studentdata);
+            Scanner studentcanner = new Scanner(studentdata);
 
-            while(sc.hasNextLine()){
-
-                String[] addStudentDetails;
-                String studentDetails = sc.nextLine();
-                addStudentDetails = studentDetails.split("\\|");
-                return addStudentDetails;
+            int count = 0;
+            while (studentcanner.hasNextLine()){
+                String studentRow = studentcanner.nextLine();
+                //byte[] decodedString = Base64.getDecoder().decode(encodedRow);
+                //String studentRow = new String(encodedRow);
+                if(!studentRow.isEmpty()){
+                    String[] studentArray = studentRow.split("\\|");
+                    student[count] = new Student();
+                    student[count].name = studentArray[0];
+                    student[count].mobile = studentArray[1];
+                    student[count].rollNumber = studentArray[2];
+                    student[count].dob = studentArray[2];
+                    count++;
+                    currentIndex++;
+                }
             }
         } catch (FileNotFoundException e) {
-
-            System.out.println("Can't read File");}
-
-        return new String[0];
+            e.printStackTrace();
+        }
     }
 
 
