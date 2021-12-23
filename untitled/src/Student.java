@@ -129,20 +129,29 @@ void searchStudent(){
         Scanner scanner = new Scanner(System.in);
     System.out.println("Enter Student Roll Number: ");
         String rollNumber = scanner.nextLine();
-        for(int i=0;i<currentIndex;i++){
-            if(rollNumber.equals(student[i].rollNumber))
-            {
-                System.out.println("/********************************/");
-                System.out.println("Student Name     " + student[i].name );
-                System.out.println("Mobile Number     " + student[i].mobile );
-                System.out.println("Roll Number          " + student[i].rollNumber );
-                System.out.println("Date of Birth       " + student[i].dob );
-                System.out.println("/********************************/\n");
-                break;
-            }
-            System.out.println("couldn't find student!!");
+        for(int i=0;i<currentIndex;i++) {
+            if (rollNumber.equalsIgnoreCase(student[i].rollNumber))
+                printStudents(i);
+            break;
         }
+        //printStudents(-1);
 
+
+
+
+}
+void printStudents(int i ){
+    if(i!=-1){
+        System.out.println("/********************************/");
+        System.out.println("Student Name     " + student[i].name );
+        System.out.println("Mobile Number     " + student[i].mobile );
+        System.out.println("Roll Number          " + student[i].rollNumber );
+        System.out.println("Date of Birth       " + student[i].dob );
+        System.out.println("/********************************/\n");
+
+    }
+    else
+        System.out.println("Couldn't Find Student!!");
 }
 
 }
