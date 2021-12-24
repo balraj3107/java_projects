@@ -1,10 +1,11 @@
 import java.io.*;
-import java.util.Scanner;
+import java.util.*;
 
 public class Student {
     static final int TOTAL_student = 10;
     static int currentIndex = -1;
     static Student[] student = new Student[TOTAL_student];
+    List<Student> studentList = Arrays.asList(student);
     static Scanner sc = new Scanner(System.in);
     String name;
     String mobile;
@@ -28,13 +29,17 @@ public class Student {
     void start() throws FileNotFoundException {
         int option;
 
-        System.out.println("press 1 to Add student" + "\n" + "press 2 to print all student"+"\n"+
-                "press 3 to Search student by Roll number");
+        System.out.println("""
+                press 1 to Add student
+                press 2 to print all student
+                press 3 to Search student by Roll number
+                press 4 to delete Student Details:\s""");
         option = sc.nextInt();
         switch (option) {
             case 1 -> addStudent();
             case 2 -> printAllstudent();
             case 3 -> searchStudent();
+            case 4 -> deleteStudent();
             default -> System.out.println("not a valid option");
         }
     }
@@ -82,7 +87,7 @@ public class Student {
             FileWriter fileWriter = new FileWriter(studentdata, true);
             //fileWriter.write(data);
             //System.out.println(data);
-            fileWriter.append(data);
+            fileWriter.write(data);
             fileWriter.close();
         } catch (IOException e) {
             System.out.println("file can't be Written");
@@ -90,27 +95,22 @@ public class Student {
     }
 
 
-    private void printAllstudent(){
-        for (int i =0; i<= currentIndex; i++){
-            System.out.println("/********************************/");
-            System.out.println("Student Name     " + student[i].name );
-            System.out.println("Mobile Number     " + student[i].mobile );
-            System.out.println("Roll Number          " + student[i].rollNumber );
-            System.out.println("Date of Birth       " + student[i].dob );
-            System.out.println("/********************************/\n");
+    private void printAllstudent() {
+        for (int i = 0; i <= currentIndex; i++) {
+            printStudents(i);
         }
     }
 
-    static void readStudentDataFromFile(){
+    static void readStudentDataFromFile() {
         try {
             Scanner studentcanner = new Scanner(studentdata);
 
             int count = 0;
-            while (studentcanner.hasNextLine()){
+            while (studentcanner.hasNextLine()) {
                 String studentRow = studentcanner.nextLine();
                 //byte[] decodedString = Base64.getDecoder().decode(encodedRow);
                 //String studentRow = new String(encodedRow);
-                if(!studentRow.isEmpty()){
+                if (!studentRow.isEmpty()) {
                     String[] studentArray = studentRow.split("\\|");
                     student[count] = new Student();
                     student[count].name = studentArray[0];
@@ -125,11 +125,12 @@ public class Student {
             e.printStackTrace();
         }
     }
-void searchStudent(){
+
+    void searchStudent() {
         Scanner scanner = new Scanner(System.in);
-    System.out.println("Enter Student Roll Number: ");
+        System.out.println("Enter Student Roll Number: ");
         String rollNumber = scanner.nextLine();
-        for(int i=0;i<currentIndex;i++) {
+        for (int i = 0; i < currentIndex; i++) {
             if (rollNumber.equalsIgnoreCase(student[i].rollNumber))
                 printStudents(i);
             break;
@@ -137,21 +138,34 @@ void searchStudent(){
         //printStudents(-1);
 
 
+    }
 
+    void printStudents(int i) {
+        if (i >= 0) {
+            System.out.println("/********************************/");
+            System.out.println("Student Name     " + student[i].name);
+            System.out.println("Mobile Number     " + student[i].mobile);
+            System.out.println("Roll Number          " + student[i].rollNumber);
+            System.out.println("Date of Birth       " + student[i].dob);
+            System.out.println("/********************************/\n");
 
-}
-void printStudents(int i ){
-    if(i!=-1){
-        System.out.println("/********************************/");
-        System.out.println("Student Name     " + student[i].name );
-        System.out.println("Mobile Number     " + student[i].mobile );
-        System.out.println("Roll Number          " + student[i].rollNumber );
-        System.out.println("Date of Birth       " + student[i].dob );
-        System.out.println("/********************************/\n");
+        }
 
     }
-    else
-        System.out.println("Couldn't Find Student!!");
-}
+    // delete object from array and file
 
-}
+    void deleteStudent() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter Student Name : ");
+        String studentName = scanner.nextLine();
+
+        //student[0].name="hero";
+        System.out.println(student[0].name);
+        readStudentDataFromFile();
+
+
+        }
+
+
+    }
+
