@@ -6,25 +6,26 @@ public class Bike {
     String company;
     String name;
     String cc;
-    static int  currIndex=-1;
-    static ArrayList<Bike> bikeArray = new ArrayList<>(10);
+    static ArrayList<Bike> bikesArray = new ArrayList<>();
     static Scanner sc  = new Scanner(System.in);
+    Bike bikes = new Bike();
     void addBike(){
-        currIndex++;
-        System.out.println("Enter bike name: ");
-         bikeArray.add() = sc.nextLine();
-        System.out.println("Enter bike Company: ");
-        bikeArray.get(currIndex).company = sc.nextLine();
+
+        System.out.println("Enter bikes name: ");
+        bikes.name = sc.nextLine();
+        System.out.println("Enter bikes Company: ");
+        bikes.company = sc.nextLine();
         System.out.println("Enter Engine CC: ");
-        bikeArray.get(currIndex).cc = sc.nextLine();
+        bikes.cc = sc.nextLine();
+        bikesArray.add(bikes);
     }
 
     void printBikeDetails(){
-        for(int i =0;i<=currIndex;i++){
-            System.out.println("Bike name is: "+bikeArray.get(i).name);
-            System.out.println("Bike Company name is: "+bikeArray.get(i).company);
-            System.out.println("Bike Engine cc is: "+bikeArray.get(i).cc);
-        }
+       bikesArray.forEach(bikes1 -> {
+           System.out.println("Company: "+bikes1.company);
+           System.out.println("name: "+bikes1.name);
+           System.out.println("Engine Cc : "+bikes1.cc);
+       });
     }
     void start(){
 
