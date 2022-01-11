@@ -7,7 +7,7 @@ public class Start {
 //
 //        student.init();
          Bike bike = new Bike();
-         bike.start();
+         bike.init();
     }
 
 
