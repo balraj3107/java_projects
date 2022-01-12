@@ -130,10 +130,11 @@ public class Student {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter Student Roll Number: ");
         String rollNumber = scanner.nextLine();
-        for (int i = 0; i < currentIndex; i++) {
+        for (int i = 0; i < currentIndex+1; i++) {
             if (rollNumber.equalsIgnoreCase(student[i].rollNumber))
                 printStudents(i);
             break;
+//            System.out.println(student[i].rollNumber);
         }
         //printStudents(-1);
 
