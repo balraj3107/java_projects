@@ -94,6 +94,11 @@ public class Student {
         }
     }
 
+    void addStudentToFile(Student student) {
+        String studentDetails = (student.name + "|" + student.mobile
+                + "|" + student.rollNumber + "|" + student.dob + "\n");
+        addStudentToFile(studentDetails);
+    }
 
     private void printAllstudent() {
         for (int i = 0; i <= currentIndex; i++) {
@@ -104,7 +109,7 @@ public class Student {
     static void readStudentDataFromFile() {
         try {
             Scanner studentcanner = new Scanner(studentdata);
-
+            currentIndex = -1;
             int count = 0;
             while (studentcanner.hasNextLine()) {
                 String studentRow = studentcanner.nextLine();
@@ -126,21 +131,6 @@ public class Student {
         }
     }
 
-    void searchStudent() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter Student Roll Number: ");
-        String rollNumber = scanner.nextLine();
-        for (int i = 0; i < currentIndex+1; i++) {
-            if (rollNumber.equalsIgnoreCase(student[i].rollNumber))
-                printStudents(i);
-            break;
-//            System.out.println(student[i].rollNumber);
-        }
-        //printStudents(-1);
-
-
-    }
-
     void printStudents(int i) {
         if (i >= 0) {
             System.out.println("/********************************/");
@@ -153,20 +143,66 @@ public class Student {
         }
 
     }
+
+    int searchStudent() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter Student Roll Number: ");
+        String rollNumber = scanner.nextLine();
+        return searchStudent(rollNumber);
+//            System.out.println(student[i].rollNumber);
+    }
+
+    int searchStudent(String rollNumber) {
+        int findindex = -1;
+        for (int i = 0; i < currentIndex + 1; i++) {
+            if (rollNumber.equalsIgnoreCase(student[i].rollNumber)) {
+                printStudents(i);
+                findindex = i;
+                break;
+            }
+//            System.out.println(student[i].rollNumber);
+        }
+        //printStudents(-1);
+
+        return findindex;
+    }
+
+
     // delete object from array and file
 
     void deleteStudent() {
+
+
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter Student Name : ");
-        String studentName = scanner.nextLine();
+        System.out.println("Enter Student Roll Number: ");
+        String rollNumber = scanner.nextLine();
+        int findIndex = searchStudent(rollNumber);
 
-        //student[0].name="hero";
-        System.out.println(student[0].name);
-        readStudentDataFromFile();
-
-
+        if (findIndex >= 0) {
+            removeStudentFromFile(findIndex);
+        } else {
+            System.out.println("Student Not Found");
         }
 
-
     }
+
+    void removeStudentFromFile(int index) {
+        try {
+            FileWriter fl = new FileWriter(studentdata);
+            fl.write("");
+            fl.close();
+            for (int i = 0; i < currentIndex + 1; i++) {
+                if (index != i) {
+                    addStudentToFile(student[i]);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            readStudentDataFromFile();
+        }
+    }
+
+
+}
 
